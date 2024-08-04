@@ -24,3 +24,8 @@ ACCUWEATHER_API_KEY=your_api_key_here
 
 Run the application:
 python app.py
+
+
+# Usage
+Enter a city name to fetch current weather data.
+The application displays temperature, humidity, wind speed, and a brief weather description.
