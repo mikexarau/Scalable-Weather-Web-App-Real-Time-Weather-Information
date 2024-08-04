@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Consulta del tiempo</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="my-3">Consulta del tiempo</h1>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="ciudad" class="form-label">Ciudad:</label>
+                    <input type="text" id="ciudad" name="ciudad" class="form-control">
+                </div>
+                <input type="submit" value="Consultar" class="btn btn-primary">
+            </form>
+        </div>
+
+        <script>
+            $(function() {
+                function obtenerSugerencias(request, response) {
+    // Read cities from text file
+    $.get('cities.txt', function(data) {
+        var ciudades = data.split('\n');
+        var coincidencias = $.ui.autocomplete.filter(ciudades, request.term);
+        response(coincidencias.slice(0, 5)); // Mostrar solo las primeras 5 sugerencias
+    }, 'text');
+}
+
+                $("#ciudad").autocomplete({
+                    source: obtenerSugerencias,
+                    minLength: 2 // Mostrar sugerencias después de que el usuario haya escrito al menos 2 caracteres
+                });
+            });
+        </script>
+    </body>
+</html>
